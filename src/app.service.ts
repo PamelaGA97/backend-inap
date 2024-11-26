@@ -10,4 +10,8 @@ export class AppService {
     const port = this.configService.get<number>('DB_PORT');
     return { host, port };
   }
+
+  getHello(): string {
+    return 'Hello World!';
+  }
 }
