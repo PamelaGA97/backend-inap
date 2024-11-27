@@ -18,29 +18,21 @@ export class StudentsService {
 
     async findAll(query: Record<string, any>): Promise<Student[]> {
         const filters: Record<string, any> = {};
-        if (query.rol) {
-            filters.rol = query.rol;
-        }
-
-        if (query.firstName) {
-            filters.firstName = query.firstName;
-        }
-
-        if (query.secondName) {
-            filters.secondName = query.secondName;
-        }
-
-        if (query.ci) {
-            filters.ci = query.ci
+        if (query.user?.rol) {
+            filters.rol = query.user.rol;
         }
 
         return this.studentRepository.find({
             where: filters,
+            relations: ['user']
         });
     }
 
     async findOne(id: string): Promise<Student> {
-        return this.studentRepository.findOneBy({id});
+        return this.studentRepository.findOne({
+            where: {id},
+            relations: ['user']
+        });
     }
 
     async create(studentData: CreateStudentDto, userData: CreateUserDto ): Promise<Student> {

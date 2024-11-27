@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
-import { IsNotEmpty, IsString, ValidateNested } from "class-validator";
+import { IsDate, IsDateString, IsNotEmpty, IsString, ValidateNested } from "class-validator";
 import { CreateUserDto } from "src/modules/users/dto/create-user.dto";
 
 export class CreateStudentDto {
@@ -10,9 +10,9 @@ export class CreateStudentDto {
     @ApiProperty()
     highschool: string;
 
-    @IsString()
+    @IsDateString()
     @IsNotEmpty()
-    @ApiProperty()
+    @ApiProperty({example: '2023-10-09'})
     graduationYear: string;
 
     @IsString()

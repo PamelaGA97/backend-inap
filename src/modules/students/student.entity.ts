@@ -1,7 +1,8 @@
-import { Column, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { BaseEntity } from "../base/base.entity";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity } from "../../base/base.entity";
 import { User } from "../users/user.entity";
 
+@Entity()
 export class Student extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
