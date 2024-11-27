@@ -1,29 +1,21 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsDateString, IsNotEmpty, IsString, ValidateNested } from "class-validator";
+import { Branch } from "src/modules/base/enums/branch.enum";
+import { TurnsJob } from "src/modules/base/enums/turns-job.enum";
 import { CreateUserDto } from "src/modules/users/dto/create-user.dto";
 
-export class CreateStudentDto {
+export class CreateSecretaryDto {
 
     @IsString()
     @IsNotEmpty()
-    @ApiProperty()
-    highschool: string;
-
-    @IsDateString()
-    @IsNotEmpty()
-    @ApiProperty({example: '2023-10-09'})
-    graduationYear: string;
+    @ApiProperty({example: 'TARDE'})
+    turn: TurnsJob;
 
     @IsString()
     @IsNotEmpty()
-    @ApiProperty()
-    faculty: string;
-
-    @IsString()
-    @IsNotEmpty()
-    @ApiProperty()
-    career: string;
+    @ApiProperty({example: 'Sucursal 2'})
+    branch: Branch;
 
     @ApiProperty()
     @ValidateNested()

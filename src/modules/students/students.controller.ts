@@ -26,8 +26,8 @@ export class StudentsController {
     }
 
     @Put(':id')
-    update(@Param('id') id: string, @Body() updateUserDto: UpdateStudentDto) {
-        return this.studentService.update(id, updateUserDto);
+    update(@Param('id') id: string, @Body() updateStudentDto: UpdateStudentDto) {
+        return this.studentService.update(id, updateStudentDto);
     }
 
     @Delete(':id')

@@ -1,23 +1,19 @@
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { BaseEntity } from "../base/base.entity";
 import { User } from "../users/user.entity";
+import { TurnsJob } from "../base/enums/turns-job.enum";
+import { Branch } from "../base/enums/branch.enum";
 
 @Entity()
-export class Student extends BaseEntity {
+export class Secretary extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @Column()
-    highschool: string;
+    turn: TurnsJob;
 
     @Column()
-    graduationYear: Date;
-
-    @Column()
-    faculty: string;
-
-    @Column()
-    career: String;
+    branch: Branch;
 
     @OneToOne(() => User, { eager: true })
     @JoinColumn()

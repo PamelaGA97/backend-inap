@@ -48,7 +48,7 @@ export class StudentsService {
     async update(id: string, updateStudentDto: UpdateStudentDto): Promise<Student> {
         const entity = await this.findOne(id);
         if (!entity) {
-        return null;
+            return null;
         }
         Object.assign(entity, updateStudentDto);
         return this.studentRepository.save(entity);
