@@ -8,6 +8,6 @@ export const getOrmConfig = (configService: ConfigService): TypeOrmModuleOptions
   username: 'postgres',
   password: 'postgresRoot',
   database: 'backinap',
-  entities: [__dirname + '/../../domain/entities/*.entity{.ts,.js}'],
+  entities: [__dirname + '/../../modules/**/*.entity{.ts,.js}'],
   synchronize: true,
 });
