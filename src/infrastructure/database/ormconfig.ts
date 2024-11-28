@@ -10,4 +10,5 @@ export const getOrmConfig = (configService: ConfigService): TypeOrmModuleOptions
   database: 'backinap',
   entities: [__dirname + '/../../modules/**/*.entity{.ts,.js}'],
   synchronize: true,
+  autoLoadEntities: true
 });

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Student } from './student.entity';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, FindOptionsWhereProperty, Repository } from 'typeorm';
 import { User } from '../users/user.entity';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { CreateUserDto } from '../users/dto/create-user.dto';
@@ -17,9 +17,17 @@ export class StudentsService {
     ) {}
 
     async findAll(query: Record<string, any>): Promise<Student[]> {
-        const filters: Record<string, any> = {};
+        const filters: FindOptionsWhere<Student> = {};
         if (query.user?.rol) {
-            filters.rol = query.user.rol;
+            filters.user = {
+                rol: query.user.rol
+            }
+        }
+
+        if (query.user.firstName) {
+            filters.user = {
+                firstName: query.user.firstName
+            }
         }
 
         return this.studentRepository.find({

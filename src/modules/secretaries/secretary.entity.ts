@@ -6,9 +6,6 @@ import { Branch } from "../base/enums/branch.enum";
 
 @Entity()
 export class Secretary extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
-
     @Column()
     turn: TurnsJob;
 

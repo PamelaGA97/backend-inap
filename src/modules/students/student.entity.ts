@@ -4,9 +4,6 @@ import { User } from "../users/user.entity";
 
 @Entity()
 export class Student extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
-
     @Column()
     highschool: string;
 

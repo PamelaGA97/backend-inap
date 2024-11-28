@@ -6,6 +6,8 @@ import { DatabaseModule } from './infrastructure/database/database.module';
 import { UsersModule } from './modules/users/users.module';
 import { StudentsModule } from './modules/students/students.module';
 import { SecretariesModule } from './modules/secretaries/secretaries.module';
+import { CareersModule } from './modules/careers/careers.module';
+import { FacultiesModule } from './modules/faculties/faculties.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { SecretariesModule } from './modules/secretaries/secretaries.module';
     StudentsModule,
     UsersModule,
     SecretariesModule,
+    CareersModule,
+    FacultiesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

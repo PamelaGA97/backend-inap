@@ -30,12 +30,12 @@ export class SecretariesController {
     }
 
     @Delete(':id')
-        remove(@Param('id') id: string) {
-            return this.secretaryService.remove(id);
+    remove(@Param('id') id: string) {
+        return this.secretaryService.remove(id);
         }
 
     @Patch(':id/restore')
-        restore(@Param('id') id: string) {
-            return this.secretaryService.restore(id);
-        }
+    restore(@Param('id') id: string) {
+        return this.secretaryService.restore(id);
+    }
 }

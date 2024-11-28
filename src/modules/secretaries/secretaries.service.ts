@@ -35,11 +35,11 @@ export class SecretariesService {
         });
     }
 
-    async create(studentData: CreateSecretaryDto, userData: CreateUserDto ): Promise<Secretary> {
+    async create(secretaryData: CreateSecretaryDto, userData: CreateUserDto ): Promise<Secretary> {
         const user = this.userRepository.create(userData);
         await this.userRepository.save(user);
         const secretary = this.secretaryRepository.create({
-            ...studentData,
+            ...secretaryData,
             user
         });
         return this.secretaryRepository.save(secretary);
@@ -48,7 +48,7 @@ export class SecretariesService {
     async update(id: string, updateStudentDto: UpdateSecretaryDto): Promise<Secretary> {
         const entity = await this.findOne(id);
         if (!entity) {
-        return null;
+            return null;
         }
         Object.assign(entity, updateStudentDto);
         return this.secretaryRepository.save(entity);

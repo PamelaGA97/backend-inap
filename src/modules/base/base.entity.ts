@@ -1,6 +1,9 @@
-import { Column, CreateDateColumn, DeleteDateColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 export abstract class BaseEntity {
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
+    
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date;
 
