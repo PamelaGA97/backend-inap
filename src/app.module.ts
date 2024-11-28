@@ -8,6 +8,8 @@ import { StudentsModule } from './modules/students/students.module';
 import { SecretariesModule } from './modules/secretaries/secretaries.module';
 import { CareersModule } from './modules/careers/careers.module';
 import { FacultiesModule } from './modules/faculties/faculties.module';
+import { ProfessorsModule } from './modules/professors/professors.module';
+import { CoursesModule } from './modules/courses/courses.module';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { FacultiesModule } from './modules/faculties/faculties.module';
     SecretariesModule,
     CareersModule,
     FacultiesModule,
+    ProfessorsModule,
+    CoursesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

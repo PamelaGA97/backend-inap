@@ -1,9 +1,10 @@
 import { IsNotEmpty, IsString } from "class-validator";
 import { ApiProperty } from '@nestjs/swagger';
+import { BaseDto } from "src/modules/base/base.dto";
 
-export class CreateCareerDto {
+export class CreateCourseDto {
     @IsString()
     @IsNotEmpty()
-    @ApiProperty({example: 'tecnologia'})
+    @ApiProperty({example: 'Matematicas'})
     name: string;
 }

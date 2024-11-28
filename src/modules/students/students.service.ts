@@ -17,17 +17,13 @@ export class StudentsService {
     ) {}
 
     async findAll(query: Record<string, any>): Promise<Student[]> {
-        const filters: FindOptionsWhere<Student> = {};
+        const filters: FindOptionsWhere<Student> = {user: {}};
         if (query.user?.rol) {
-            filters.user = {
-                rol: query.user.rol
-            }
+            (filters.user as FindOptionsWhere<User>).rol = query.user.rol
         }
 
-        if (query.user.firstName) {
-            filters.user = {
-                firstName: query.user.firstName
-            }
+        if (query.user?.firstName) {
+            (filters.user as FindOptionsWhere<User>).firstName = query.user.firstName
         }
 
         return this.studentRepository.find({

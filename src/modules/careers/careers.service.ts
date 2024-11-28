@@ -39,7 +39,7 @@ export class CareersService {
         if (!entity) {
             return null;
         }
-        Object.assign(entity, UpdateCareerDto);
+        Object.assign(entity, updateCareerDto);
         return this.careerRepository.save(entity);
     }
 

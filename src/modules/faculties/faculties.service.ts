@@ -3,6 +3,7 @@ import { Faculty } from './faculty.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateFacultyDto } from './dto/create-faculty.dto';
+import { UpdateFacultyDto } from './dto/update-faculty.dto';
 
 @Injectable()
 export class FacultiesService {
@@ -19,14 +20,14 @@ export class FacultiesService {
 
         return this.facultyRepository.find({
             where: filters,
-            relations: ['careers']
+            relations: ['careers', 'courses']
         });
     }
 
     async findOne(id: string): Promise<Faculty> {
         return this.facultyRepository.findOne({
             where: { id },
-            relations: ['careers']
+            relations: ['careers', 'courses']
         });
     }
 
@@ -36,7 +37,7 @@ export class FacultiesService {
         return faculty;
     }
 
-    async update(id: string, updateFacultyDto: CreateFacultyDto): Promise<Faculty> {
+    async update(id: string, updateFacultyDto: UpdateFacultyDto): Promise<Faculty> {
         const entity = await this.findOne(id);
         if (!entity) {
             return null;
