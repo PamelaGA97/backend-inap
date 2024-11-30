@@ -12,7 +12,7 @@ export class Secretary extends BaseEntity {
     @Column()
     branch: Branch;
 
-    @OneToOne(() => User, { eager: true })
+    @OneToOne(() => User, { eager: true, cascade: true })
     @JoinColumn()
     user: User;
 }

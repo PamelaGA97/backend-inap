@@ -1,6 +1,7 @@
-import { Column, Entity, IsNull, ManyToOne } from "typeorm";
+import { Column, Entity, IsNull, ManyToOne, OneToMany } from "typeorm";
 import { BaseEntity } from "../base/base.entity";
 import { Faculty } from "../faculties/faculty.entity";
+import { Student } from "../students/student.entity";
 
 @Entity()
 export class Career extends BaseEntity {
@@ -9,4 +10,7 @@ export class Career extends BaseEntity {
 
     @ManyToOne(() => Faculty, (faculty) => faculty.careers, {onDelete: 'CASCADE'})
     faculty: Faculty;
+
+    @OneToMany(() => Student, (student) => student.career)
+    students: Student[];
 }

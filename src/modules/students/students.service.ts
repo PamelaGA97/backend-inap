@@ -28,14 +28,14 @@ export class StudentsService {
 
         return this.studentRepository.find({
             where: filters,
-            relations: ['user']
+            relations: ['user', 'career', 'faculty']
         });
     }
 
     async findOne(id: string): Promise<Student> {
         return this.studentRepository.findOne({
             where: {id},
-            relations: ['user']
+            relations: ['user', 'career', 'faculty']
         });
     }
 

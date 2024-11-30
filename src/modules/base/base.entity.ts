@@ -10,6 +10,6 @@ export abstract class BaseEntity {
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
     updatedAt: Date;
 
-    @Column({ type: 'timestamp', nullable: true })
+    @DeleteDateColumn({ type: 'timestamp', nullable: true })
     deletedAt?: Date;
 }
