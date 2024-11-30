@@ -20,14 +20,14 @@ export class ProfessorsService {
 
         return this.professorRepository.find({
             where: filters,
-            relations: ['careers', 'courses']
+            relations: ['user', 'course', 'faculty']
         });
     }
 
     async findOne(id: string): Promise<Professor> {
         return this.professorRepository.findOne({
             where: { id },
-            relations: ['careers', 'courses']
+            relations: ['user', 'course', 'faculty']
         });
     }
 
