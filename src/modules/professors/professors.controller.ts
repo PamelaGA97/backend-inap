@@ -21,6 +21,7 @@ export class ProfessorsController {
 
     @Post()
     create(@Body() createProfssorDto: CreateProfessorDto) {
+        console.log(createProfssorDto)
         return this.professorsService.create(createProfssorDto);
     }
 

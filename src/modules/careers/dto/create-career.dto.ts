@@ -6,4 +6,9 @@ export class CreateCareerDto {
     @IsNotEmpty()
     @ApiProperty({example: 'tecnologia'})
     name: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty({example: 'tecnologia'})
+    courseTime: string;
 }

@@ -10,6 +10,9 @@ import { CareersModule } from './modules/careers/careers.module';
 import { FacultiesModule } from './modules/faculties/faculties.module';
 import { ProfessorsModule } from './modules/professors/professors.module';
 import { CoursesModule } from './modules/courses/courses.module';
+import { ClassScheduleModule } from './modules/class-schedule/class-schedule.module';
+import { FacultyCareerSeeder } from './modules/faculties/seeders/faculty-career.seed';
+import { ClassScheduleSeeder } from './modules/class-schedule/seeders/class-schedule.seed';
 
 @Module({
   imports: [
@@ -25,8 +28,19 @@ import { CoursesModule } from './modules/courses/courses.module';
     FacultiesModule,
     ProfessorsModule,
     CoursesModule,
+    ClassScheduleModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(
+    private readonly seeder: FacultyCareerSeeder,
+    private readonly classScheduleSeeder: ClassScheduleSeeder
+  ) {}
+
+  async onModuleInit() {
+    await this.seeder.seed();
+    await this.classScheduleSeeder.seed();
+  }
+}

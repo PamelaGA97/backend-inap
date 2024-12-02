@@ -10,6 +10,9 @@ export class Faculty extends BaseEntity {
     @Column()
     name: string;
 
+    @Column()
+    code: string;
+
     @OneToMany(() => Career, (career) => career.faculty, { cascade: true })
     careers: Career[];
 

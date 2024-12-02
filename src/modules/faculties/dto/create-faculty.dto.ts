@@ -10,6 +10,11 @@ export class CreateFacultyDto {
     @ApiProperty({example: 'Tecnologia'})
     name: string;
 
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty({example: 'TEC'})
+    code: string;
+
     @IsArray()
     @ValidateNested({ each: true })
     @ApiProperty({type: [CreateCareerDto]})
