@@ -65,4 +65,13 @@ export class StudentsService {
     async restore(id: string): Promise<void> {
         await this.studentRepository.restore(id);
     }
+
+    async studentForFacultyCount(): Promise<any> {
+        return await this.studentRepository
+        .createQueryBuilder('student')
+        .select('student.faculty', 'faculty')
+        .addSelect('COUNT(student.id)', 'count')
+        .groupBy('student.faculty')
+        .getRawMany();
+    }
 }

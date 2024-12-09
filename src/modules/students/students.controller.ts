@@ -10,6 +10,14 @@ export class StudentsController {
         private studentService: StudentsService
     ) {}
 
+    @Get('/student-for-faculty')
+    async studentForFaculty() {
+        const response = await this.studentService.studentForFacultyCount();
+        return {
+            data: response
+        }
+    }
+
     @Get()
     findAll(@Query() query: Record<string, any>) {
         return this.studentService.findAll(query);
