@@ -20,11 +20,15 @@ export class ProfessorsService {
 
     async findAll(query: Record<string, any>): Promise<Professor[]> {
         const filters: Record<string, any> = {};
-        if (query.name) {
-            filters.name = query.name;
+        if(query.faculty) {
+            filters.faculty = { name: query.faculty }
         }
-
-        return this.professorRepository.find({
+        
+        if (query.course) {
+            filters.course = { name: query.course };
+        }
+        
+        return await this.professorRepository.find({
             where: filters,
             relations: ['user', 'course', 'faculty', 'classSchedules']
         });
@@ -39,11 +43,7 @@ export class ProfessorsService {
             
     async create(createProfessorDto: CreateProfessorDto): Promise<Professor> {
         const professor = this.professorRepository.create(createProfessorDto);
-        console.log(professor)
         await this.professorRepository.save(professor);
-
-
-
         /*
         const { faculty, course, user } = createProfessorDto;        
         const { classScheduleIds } = createProfessorDto;
@@ -68,8 +68,6 @@ export class ProfessorsService {
 
         console.log(createProfessorDto)
         */
-
-
         return professor;
     }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Student } from './student.entity';
-import { FindOptionsWhere, FindOptionsWhereProperty, Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
 import { User } from '../users/user.entity';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { CreateUserDto } from '../users/dto/create-user.dto';

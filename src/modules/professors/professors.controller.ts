@@ -11,6 +11,7 @@ export class ProfessorsController {
 
     @Get()
     findAll(@Query() query: Record<string, any>) {
+        console.log(query)
         return this.professorsService.findAll(query);
     }
 
@@ -21,7 +22,6 @@ export class ProfessorsController {
 
     @Post()
     create(@Body() createProfssorDto: CreateProfessorDto) {
-        console.log(createProfssorDto)
         return this.professorsService.create(createProfssorDto);
     }
 

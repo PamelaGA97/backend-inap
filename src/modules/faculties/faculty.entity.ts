@@ -4,6 +4,7 @@ import { BaseEntity } from "../base/base.entity";
 import { Course } from "../courses/course.entity";
 import { Student } from "../students/student.entity";
 import { Professor } from "../professors/professor.entity";
+import { FacultyCourse } from '../faculty-course/faculty-course.entity';
 
 @Entity()
 export class Faculty extends BaseEntity {
@@ -24,4 +25,7 @@ export class Faculty extends BaseEntity {
 
     @OneToMany(() => Professor, (professor) => professor.faculty)
     professors: Professor[];
+
+    @OneToMany(() => FacultyCourse, (facultyCourse) => facultyCourse.faculty)
+    facultyCourses: FacultyCourse[];
 }

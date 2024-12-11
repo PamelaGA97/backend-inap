@@ -13,6 +13,7 @@ import { CoursesModule } from './modules/courses/courses.module';
 import { ClassScheduleModule } from './modules/class-schedule/class-schedule.module';
 import { FacultyCareerSeeder } from './modules/faculties/seeders/faculty-career.seed';
 import { ClassScheduleSeeder } from './modules/class-schedule/seeders/class-schedule.seed';
+import { FacultyCourseModule } from './modules/faculty-course/faculty-course.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ClassScheduleSeeder } from './modules/class-schedule/seeders/class-sche
     ProfessorsModule,
     CoursesModule,
     ClassScheduleModule,
+    FacultyCourseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
