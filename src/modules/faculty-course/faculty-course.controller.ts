@@ -16,6 +16,7 @@ export class FacultyCourseController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
+        console.log(id,'oipjasdfalsdk;fj;alskdf;kaskdfl;j')
         return this.facultyCourseService.findOne(id);
     }
 

@@ -11,7 +11,6 @@ export class ProfessorsController {
 
     @Get()
     findAll(@Query() query: Record<string, any>) {
-        console.log(query)
         return this.professorsService.findAll(query);
     }
 
