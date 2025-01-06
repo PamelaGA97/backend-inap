@@ -14,27 +14,23 @@ export class FacultyCourseService {
 
     async findAll(query: Record<string, any>): Promise<FacultyCourse[]> {
         const filters: Record<string, any> = {};
-        if (query.user?.rol) {
-            filters.rol = query.user.rol;
-        }
-
+        
         return this.facultyCourseRepository.find({
             where: filters,
-            relations: ['user']
+            relations: ['faculty']
         });
     }
 
     async findOne(id: string): Promise<FacultyCourse> {
         return this.facultyCourseRepository.findOne({
             where: {id},
-            relations: ['user']
+            relations: ['faculty']
         });
     }
 
     async create(facultyCourseData: CreateFacultyCourseDto ): Promise<FacultyCourse> {
         console.log(facultyCourseData)
         const facultyCourse = this.facultyCourseRepository.create(facultyCourseData);
-        console.log(1)
         await this.facultyCourseRepository.save(facultyCourse);
         return facultyCourse;
     }

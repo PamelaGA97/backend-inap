@@ -26,6 +26,10 @@ export class StudentsService {
             (filters.user as FindOptionsWhere<User>).firstName = query.user.firstName
         }
 
+        if (query.faculty) {
+            filters.faculty = { name: query.faculty };
+        }
+
         return this.studentRepository.find({
             where: filters,
             relations: ['user', 'career', 'faculty']
