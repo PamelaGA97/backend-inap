@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Professor } from './professor.entity';
 import { In, Repository } from 'typeorm';
@@ -6,6 +6,8 @@ import { CreateProfessorDto } from './dto/create-professor.dto';
 import { UpdateProfessorDto } from './dto/update-professor.dto';
 //import { ProfessorClassSchedule } from '../professor-class-schedule/professorClassSchedule.entity';
 import { ClassSchedule } from '../class-schedule/class-schedule.entity';
+import { PaginationResult } from 'src/shared/pagination/pagination-result';
+import { PaginationMeta } from 'src/shared/pagination/pagination-meta.model';
 
 @Injectable()
 export class ProfessorsService {
@@ -18,20 +20,45 @@ export class ProfessorsService {
         //private readonly professorClassScheduleRepository: Repository<ProfessorClassSchedule>,
     ) {}
 
-    async findAll(query: Record<string, any>): Promise<Professor[]> {
-        const filters: Record<string, any> = {};
-        if(query.faculty) {
-            filters.faculty = { name: query.faculty }
+    async findAll(query: Record<string, any>): Promise<PaginationResult<Professor>> {
+        try {
+            const currentPage = parseInt(query.page, 10) || 1;
+            const itemsForPage = parseInt(query.limit) || 10;
+
+            if (currentPage < 1 || itemsForPage < 1) {
+                throw new BadRequestException('Parametros de paginacion invalidos.');
+            }
+
+            const skip = (currentPage-1)*itemsForPage;
+    
+            const filters: Record<string, any> = {};
+    
+            if(query.faculty) {
+                filters.faculty = { name: query.faculty }
+            }
+            
+            if (query.course) {
+                filters.course = { name: query.course };
+            }
+    
+            const [data, totalItems] = await this.professorRepository.findAndCount({
+                where: filters,
+                relations: ['user', 'course', 'faculty', 'classSchedules'],
+                skip,
+                take: itemsForPage
+            });
+    
+            const meta: PaginationMeta = {
+                totalItems,
+                currentPage,
+                itemsForPage
+            };
+            
+            return { data, meta }
+        } catch (error) {
+            console.error(error);
+            throw new InternalServerErrorException('Failed to fetch professors.');
         }
-        
-        if (query.course) {
-            filters.course = { name: query.course };
-        }
-        
-        return await this.professorRepository.find({
-            where: filters,
-            relations: ['user', 'course', 'faculty', 'classSchedules']
-        });
     }
 
     async findOne(id: string): Promise<Professor> {
@@ -39,7 +66,7 @@ export class ProfessorsService {
             where: { id },
             relations: ['user', 'course', 'faculty', 'classSchedules']
             });
-            }
+    }
             
     async create(createProfessorDto: CreateProfessorDto): Promise<Professor> {
         const professor = this.professorRepository.create(createProfessorDto);
