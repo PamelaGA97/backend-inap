@@ -1,0 +1,6 @@
+export enum PersonType {
+    ADMIN = 'ADMINISTRADOR',
+    SECRETARY = 'SECRETARIA',
+    STUDENT = 'ESTUDIANTE',
+    PROFESSOR = 'DOCENTE'
+}
