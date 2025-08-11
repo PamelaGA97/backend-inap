@@ -1,7 +1,10 @@
-import { BaseEntity, Column } from "typeorm";
+import { Column, Entity, TableInheritance } from "typeorm";
 import { UserEnum } from "../enums/user.enum";
 import { UserRolEnum } from "../enums/user-rol-enum";
+import { BaseEntity } from "src/modules/base/base.entity";
 
+@Entity('users')
+@TableInheritance({ column: {type: 'varchar', name: 'type'}})
 export class User extends BaseEntity {
     @Column()
     firstName: string;
@@ -9,7 +12,7 @@ export class User extends BaseEntity {
     @Column()
     secondName: string;
 
-    @Column()
+    @Column({unique: true})
     ci: string;
 
     @Column()
@@ -21,11 +24,15 @@ export class User extends BaseEntity {
     @Column()
     rol: UserRolEnum;
 
-    @Column()
+    @Column({unique: true})
     email: string;
 
+    @Column({unique: true})
+    password?: string;
+
     @Column()
-    password: string;
+    isAvaible: boolean;
 
-
+    @Column()
+    salary: number;
 }
