@@ -24,9 +24,10 @@ export async function paginate<T>(
         meta: {
             totalItems: total,
             itemCounts: items.length,
-            itemsPerPage: limit,
+            itemsForPage: limit,
             totalPages: Math.ceil(total/limit),
-            currentPage: page
+            currentPage: page,
+            hasMore: page < Math.ceil(total/limit)
         }
     }
 }

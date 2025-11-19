@@ -1,7 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsDateString, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsBoolean, IsDateString, IsEmpty, IsEnum, isEnum, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from "class-validator";
 import { UserEnum } from "../enums/user.enum";
 import { UserRolEnum } from "../enums/user-rol-enum";
+import { TurnsJob } from "src/modules/base/enums/turns-job.enum";
+import { Type } from "class-transformer";
+import { CreateFacultyDto } from "src/modules/faculties/dto/create-faculty.dto";
 
 export class CreateUserDto {
     @IsString()
@@ -29,11 +32,13 @@ export class CreateUserDto {
     @ApiProperty({example: 'armandoParedes@testnest.com'})
     email: string;
 
-    @IsNotEmpty()
-    @ApiProperty({example: UserEnum.PROFESSOR})
-    type: UserEnum;
+    // @IsNotEmpty()
+    // @IsEnum(UserEnum)
+    // @ApiProperty({example: UserEnum.PROFESSOR})
+    // user_type: UserEnum;
 
     @IsNotEmpty()
+    @IsEnum(UserRolEnum)
     @ApiProperty({example: UserRolEnum.PROFESSOR})
     rol: UserRolEnum;
 
@@ -45,6 +50,7 @@ export class CreateUserDto {
     @ApiProperty({example: '1234567890'})
     password: string;
 
+    @IsOptional()
     @IsNumber()
     @ApiProperty({example: 4000.00})
     salary: number
@@ -52,17 +58,34 @@ export class CreateUserDto {
     // optionals for type user
     // professor
 
-    @IsDateString()
-    @ApiProperty({example: '2025-01-01'})
-    initialDate: Date;
+    // @IsOptional()
+    // @IsDateString()
+    // @ApiProperty({example: '2025-01-01'})
+    // initialDate: Date;
 
-    @IsDateString()
-    @ApiProperty({example: '2025-01-01'})
-    finishDate: Date;
+    // @IsOptional()
+    // @IsDateString()
+    // @ApiProperty({example: '2025-01-01'})
+    // finishDate: Date;
 
     // secretary
-
+    @IsOptional()
     @IsString()
-    @ApiProperty({example: 'Av. ecologina entre Av. catarina y rocabado'})
-    address: string;
+    @ApiProperty({example: 'TARDE'})
+    turn: TurnsJob;
+
+    @IsOptional()
+    @IsString()
+    @ApiProperty({example: 'Magdalena'})
+    highschool: string
+
+    @IsOptional()
+    @IsString()
+    @ApiProperty({example: '2023'})
+    graduationYear: string
+
+    @ApiProperty()
+    @ValidateNested()
+    @Type(() => CreateFacultyDto)
+    faculty: CreateFacultyDto;
 }

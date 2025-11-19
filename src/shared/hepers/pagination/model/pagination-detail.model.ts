@@ -1,7 +1,7 @@
 export interface PaginationDetailModel {
     totalItems: number,
     itemCounts: number,
-    itemsPerPage: number,
+    itemsForPage: number,
     totalPages: number,
     currentPage: number
 }

@@ -1,10 +1,9 @@
-import { Column, Entity, TableInheritance } from "typeorm";
-import { UserEnum } from "../enums/user.enum";
+import { Column, Entity, ManyToOne, TableInheritance } from "typeorm";
 import { UserRolEnum } from "../enums/user-rol-enum";
 import { BaseEntity } from "src/modules/base/base.entity";
+import { Faculty } from "src/modules/faculties/entities/faculty.entity";
 
 @Entity('users')
-@TableInheritance({ column: {type: 'varchar', name: 'type'}})
 export class User extends BaseEntity {
     @Column()
     firstName: string;
@@ -12,27 +11,47 @@ export class User extends BaseEntity {
     @Column()
     secondName: string;
 
-    @Column({unique: true})
+    @Column()
     ci: string;
 
     @Column()
     phone: string;
 
     @Column()
-    type: UserEnum;
-
-    @Column()
     rol: UserRolEnum;
 
-    @Column({unique: true})
+    @Column()
     email: string;
 
-    @Column({unique: true})
+    @Column({select: false})
     password?: string;
 
     @Column()
     isAvaible: boolean;
 
-    @Column()
+    @Column({nullable: true})
     salary: number;
+
+    // secretary
+    @Column({nullable: true})
+    turn: string;
+
+    // student
+    @Column({nullable: true})
+    highschool: string;
+
+    @Column({nullable: true})
+    graduationYear: string;
+
+    @ManyToOne(() => Faculty, (faculty) => faculty.users)
+    faculty: Faculty
+
+    // Professor
+    // @Column({nullable: true})
+    // initialDate: Date;
+
+    // @Column({nullable: true})
+    // finishDate: Date;
+
+    
 }

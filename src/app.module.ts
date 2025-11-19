@@ -7,7 +7,7 @@ import { DatabaseModule } from './infrastructure/database/database.module';
 // import { StudentsModule } from './modules/students/students.module';
 // import { SecretariesModule } from './modules/secretaries/secretaries.module';
 // import { CareersModule } from './modules/careers/careers.module';
-// import { FacultiesModule } from './modules/faculties/faculties.module';
+import { FacultiesModule } from './modules/faculties/faculties.module';
 // import { ProfessorsModule } from './modules/professors/professors.module';
 // import { CoursesModule } from './modules/courses/courses.module';
 // import { ClassScheduleModule } from './modules/class-schedule/class-schedule.module';
@@ -17,6 +17,8 @@ import { DatabaseModule } from './infrastructure/database/database.module';
 // import { InscriptionsModule } from './modules/inscriptions/inscriptions.module';
 import { PeopleModule } from './modules/people/people.module';
 import { UsersModule } from './modules/users/users.module';
+import { FacultyCareerSeeder } from './modules/faculties/seeders/faculty-career.seed';
+import { DegreesModule } from './modules/degree/degrees.module';
 
 @Module({
   imports: [
@@ -29,7 +31,8 @@ import { UsersModule } from './modules/users/users.module';
     // UsersModule,
     // SecretariesModule,
     // CareersModule,
-    // FacultiesModule,
+    DegreesModule,
+    FacultiesModule,
     // ProfessorsModule,
     // CoursesModule,
     // ClassScheduleModule,
@@ -43,12 +46,12 @@ import { UsersModule } from './modules/users/users.module';
 })
 export class AppModule {
   constructor(
-    // private readonly seeder: FacultyCareerSeeder,
+    private readonly seeder: FacultyCareerSeeder,
     // private readonly classScheduleSeeder: ClassScheduleSeeder
   ) {}
 
-  // async onModuleInit() {
-  //   await this.seeder.seed();
-  //   await this.classScheduleSeeder.seed();
-  // }
+  async onModuleInit() {
+    await this.seeder.seed();
+    // await this.classScheduleSeeder.seed();
+  }
 }
