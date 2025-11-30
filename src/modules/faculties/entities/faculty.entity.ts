@@ -25,12 +25,4 @@ export class Faculty extends BaseEntity {
     @OneToMany(() => User, (user) => user.faculty)
     users: User[];
 
-    // @OneToMany(() => Student, (student) => student.faculty)
-    // students: Student[];
-
-    // @OneToMany(() => Professor, (professor) => professor.faculty)
-    // professors: Professor[];
-
-    // @OneToMany(() => FacultyCourse, (facultyCourse) => facultyCourse.faculty)
-    // facultyCourses: FacultyCourse[];
 }

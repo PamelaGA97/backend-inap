@@ -14,11 +14,17 @@ export class FacultiesController {
     findAll(@Query() query: Record<string, any>) {
         return this.facultiesService.findAll(query);
     }
+    
+    @Get(':id/degrees')
+    findDegrees(@Param('id') id: string) {
+        return this.facultiesService.findDegrees(id);
+    }
 
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.facultiesService.findOne(id);
     }
+
 
     @Post()
     create(@Body() createFacultyDto: CreateFacultyDto) {

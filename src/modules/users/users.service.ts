@@ -55,7 +55,7 @@ export class UsersService {
             return response;
         } catch(error) {
             errorHanbler(this.serviceName, error);
-            throw new BadRequestException('No se cargar los usuarios.');
+            throw new BadRequestException('No se cargan los usuarios.');
         }
     }
 

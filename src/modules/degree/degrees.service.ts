@@ -4,6 +4,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Degree } from './entities/degrees.entity';
 import { CreateDegreeDto } from './dto/create-degree.dto';
 import { UpdateDegreeDto } from './dto/update-degree.dto';
+import { paginate } from 'src/shared/hepers/pagination/pagination.helper';
+import { PaginationModel } from 'src/shared/hepers/pagination/model/pagination.model';
 
 @Injectable()
 export class DegreesService {
@@ -12,15 +14,15 @@ export class DegreesService {
         private readonly degreeRepository: Repository<Degree>
     ) {}
 
-    async findAll(query: Record<string, any>): Promise<Degree[]> {
-        const filters: Record<string, any> = {};
-        if(query.name) {
-            filters.name = query.name;
-        }
+    async findAll(query: Record<string, any>): Promise<PaginationModel<Degree>> {
+        const page = Number(query.page) > 0 ? Number(query.page) : 1;
+        const limit = Number(query.limit) > 0 ? Number(query.limit) : 10;
 
-        return this.degreeRepository.find({
-            where: filters,
-        })
+        const queryBuilder =  this.degreeRepository.createQueryBuilder('degrees')
+                                .orderBy('degrees.createdAt', 'DESC');
+        
+        const responce = await paginate<Degree>(queryBuilder, { page, limit });
+        return responce;
     }
 
     async findOne(id: string): Promise<Degree> {
