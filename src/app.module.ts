@@ -3,22 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './infrastructure/database/database.module';
-// import { UsersModule } from './modules/users/users.module';
-// import { StudentsModule } from './modules/students/students.module';
-// import { SecretariesModule } from './modules/secretaries/secretaries.module';
-// import { CareersModule } from './modules/careers/careers.module';
 import { FacultiesModule } from './modules/faculties/faculties.module';
-// import { ProfessorsModule } from './modules/professors/professors.module';
-// import { CoursesModule } from './modules/courses/courses.module';
-// import { ClassScheduleModule } from './modules/class-schedule/class-schedule.module';
-// import { FacultyCareerSeeder } from './modules/faculties/seeders/faculty-career.seed';
-// import { ClassScheduleSeeder } from './modules/class-schedule/seeders/class-schedule.seed';
-// import { FacultyCourseModule } from './modules/faculty-course/faculty-course.module';
-// import { InscriptionsModule } from './modules/inscriptions/inscriptions.module';
 import { PeopleModule } from './modules/people/people.module';
 import { UsersModule } from './modules/users/users.module';
 import { FacultyCareerSeeder } from './modules/faculties/seeders/faculty-career.seed';
 import { DegreesModule } from './modules/degree/degrees.module';
+import { CoursesModule } from './modules/courses/courses.module';
 
 @Module({
   imports: [
@@ -27,19 +17,19 @@ import { DegreesModule } from './modules/degree/degrees.module';
       envFilePath: '.env',
     }),
     DatabaseModule,
+    DegreesModule,
+    FacultiesModule,
+    CoursesModule,
+    UsersModule,
     // StudentsModule,
     // UsersModule,
     // SecretariesModule,
     // CareersModule,
-    DegreesModule,
-    FacultiesModule,
     // ProfessorsModule,
-    // CoursesModule,
     // ClassScheduleModule,
     // FacultyCourseModule,
     // InscriptionsModule,
     PeopleModule,
-    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

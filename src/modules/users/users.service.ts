@@ -8,6 +8,8 @@ import * as bcrypt from 'bcrypt';
 import { PaginationModel } from 'src/shared/hepers/pagination/model/pagination.model';
 import { paginate } from 'src/shared/hepers/pagination/pagination.helper';
 import { errorHanbler } from 'src/shared/utils/Error.utils';
+import { validateFacultyInput } from 'src/common/utils/validate-faculty.util';
+import { Faculty } from '../faculties/entities/faculty.entity';
 
 @Injectable()
 export class UsersService {
@@ -15,6 +17,8 @@ export class UsersService {
     constructor(
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
+		@InjectRepository(Faculty)
+		private readonly facultyRepository: Repository<Faculty>
     ) {}
 
     async create(createUserDto: CreateUserDto): Promise<User> {
@@ -26,11 +30,17 @@ export class UsersService {
             if (existCi) throw new BadRequestException('El ci ya existe');
 
             if (createUserDto.password) {
-                const hashedpassword = await bcrypt.hash(createUserDto.password, 10);
-                createUserDto.password = hashedpassword;
+                createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
             }
 
-            const user = await this.userRepository.create(createUserDto);
+            const faculty = await validateFacultyInput(
+            	createUserDto.faculty as Faculty,
+            	this.facultyRepository
+            );
+
+			createUserDto.faculty = faculty;
+
+            const user = await this.userRepository.create(createUserDto as {});
             return await this.userRepository.save(user);
 
         } catch(error) {
