@@ -36,13 +36,12 @@ export class FacultiesService {
             const limit = Number(query.limit) > 0 ? Number(query.limit) : 10;
 
             const queryBuilder = this.facultyRepository.createQueryBuilder('faculties')
+                                    .leftJoinAndSelect('faculties.degrees', 'degrees')
+                                    .leftJoinAndSelect('faculties.courses','courses')
                                     .orderBy('faculties.createdAt', 'DESC');
             if (query.name) {
                 queryBuilder.andWhere('faculties.name ILIKE :name', { name: `%${query.name}%` });
             }
-
-            // queryBuilder.relation('degrees');
-            // queryBuilder.relation('courses');
 
             const response = await paginate<Faculty>(queryBuilder, { page, limit });
             return response;
