@@ -1,10 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsDateString, IsEmpty, IsEnum, isEnum, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from "class-validator";
-import { UserEnum } from "../enums/user.enum";
+import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 import { UserRolEnum } from "../enums/user-rol-enum";
 import { TurnsJob } from "src/modules/base/enums/turns-job.enum";
-import { Type } from "class-transformer";
-import { CreateFacultyDto } from "src/modules/faculties/dto/create-faculty.dto";
+import { Faculty } from "src/modules/faculties/entities/faculty.entity";
+import { Degree } from "src/modules/degree/entities/degrees.entity";
 
 export class CreateUserDto {
     @IsString()
@@ -84,8 +83,19 @@ export class CreateUserDto {
     @ApiProperty({example: '2023'})
     graduationYear: string
 
-    @ApiProperty()
-    @ValidateNested()
-    @Type(() => CreateFacultyDto)
-    faculty: CreateFacultyDto;
+    @ApiProperty({
+        oneOf: [
+            { type: 'string', example: 'uuid-de-facultad' },
+            { type: 'object', example: { id: 'uuid-de-facultad' } }
+        ]
+    })
+    faculty: string | Faculty;
+
+    @ApiProperty({
+        oneOf: [
+            { type: 'string', example: 'uuid-de-facultad' },
+            { type: 'object', example: { id: 'uuid-de-facultad' } }
+        ]
+    })
+    degree: string | Degree;
 }

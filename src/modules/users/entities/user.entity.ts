@@ -2,6 +2,7 @@ import { Column, Entity, ManyToOne, TableInheritance } from "typeorm";
 import { UserRolEnum } from "../enums/user-rol-enum";
 import { BaseEntity } from "src/modules/base/base.entity";
 import { Faculty } from "src/modules/faculties/entities/faculty.entity";
+import { Degree } from "src/modules/degree/entities/degrees.entity";
 
 @Entity('users')
 export class User extends BaseEntity {
@@ -45,6 +46,9 @@ export class User extends BaseEntity {
 
     @ManyToOne(() => Faculty, (faculty) => faculty.users)
     faculty: Faculty
+
+    @ManyToOne(() => Degree, (degree) => degree.users)
+    degree: Degree
 
     // Professor
     // @Column({nullable: true})
