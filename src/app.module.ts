@@ -14,7 +14,7 @@ import { CoursesModule } from './modules/courses/courses.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
+      envFilePath: 'src/env/.env',
     }),
     DatabaseModule,
     DegreesModule,

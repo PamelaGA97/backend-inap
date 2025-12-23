@@ -8,9 +8,6 @@ export class Course extends BaseEntity {
     @Column()
     name: string;
 
-    @Column()
-    courseTime: CareerTimeEnum;
-
     @ManyToOne(() => Faculty, (faculty) => faculty.courses, {onDelete: 'CASCADE'})
     faculty: Faculty;
 

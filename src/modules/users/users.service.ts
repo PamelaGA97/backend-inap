@@ -10,6 +10,7 @@ import { paginate } from 'src/shared/hepers/pagination/pagination.helper';
 import { errorHanbler } from 'src/shared/utils/Error.utils';
 import { validateFacultyInput } from 'src/common/utils/validate-faculty.util';
 import { Faculty } from '../faculties/entities/faculty.entity';
+import { UserRolEnum } from './enums/user-rol-enum';
 
 @Injectable()
 export class UsersService {
@@ -33,12 +34,13 @@ export class UsersService {
                 createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
             }
 
-            const faculty = await validateFacultyInput(
-            	createUserDto.faculty as Faculty,
-            	this.facultyRepository
-            );
-
-			createUserDto.faculty = faculty;
+            if (createUserDto.rol === UserRolEnum.STUDENT || createUserDto.rol === UserRolEnum.PROFESSOR) {
+                const faculty = await validateFacultyInput(
+                    createUserDto.faculty as Faculty,
+                    this.facultyRepository
+                );
+                createUserDto.faculty = faculty;
+            }
 
             const user = await this.userRepository.create(createUserDto as {});
             return await this.userRepository.save(user);
@@ -70,6 +72,22 @@ export class UsersService {
     }
 
     async findOne(id: string): Promise<User> {
+        try {
+            const user = await this.userRepository.findOne({
+                where: {id},
+                relations: ['faculty', 'degree']
+            })
+            
+            if (!user) {
+                throw new BadRequestException('Usuario no encontrado');
+            }
+
+            return user;
+        }
+        catch (error) {
+            errorHanbler(this.serviceName, error);
+            throw new BadRequestException('No se encontro el usuario.');
+        }
         return await this.userRepository.findOneBy({id});
     }
 

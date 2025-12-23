@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Faculty } from '../entities/faculty.entity';
+import { CareerTimeEnum } from 'src/modules/courses/enum/career-time.enum';
 
 @Injectable()
 export class FacultyCareerSeeder {
@@ -17,22 +18,22 @@ export class FacultyCareerSeeder {
         code: 'TEC',
         name: 'Tecnología',
         degrees: [
-          { name: 'Ing. Industrial', courseTime: 'semestral' },
-          { name: 'Ing. Mecánica', courseTime: 'semestral' },
-          { name: 'Ing. Eléctrica', courseTime: 'semestral' },
-          { name: 'Ing. Informática', courseTime: 'semestral' },
-          { name: 'Ing. Electrónica' , courseTime: 'semestral'},
-          { name: 'Ing. Sistemas', courseTime: 'semestral' },
-          { name: 'Ing. Electromecánica', courseTime: 'semestral' },
-          { name: 'Ing. Civil' , courseTime: 'semestral'},
-          { name: 'Ing. Química' , courseTime: 'semestral'},
-          { name: 'Ing. Alimentos', courseTime: 'semestral' },
-          { name: 'Lic. Biología', courseTime: 'semestral' },
-          { name: 'Lic. Química', courseTime: 'semestral' },
-          { name: 'Lic. Matemáticas', courseTime: 'semestral' },
-          { name: 'Lic. Física', courseTime: 'semestral' },
-          { name: 'Ing. Biotecnología', courseTime: 'semestral' },
-          { name: 'Ing. Energía', courseTime: 'semestral' },
+          { name: 'Ing. Industrial', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Ing. Mecánica', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Ing. Eléctrica', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Ing. Informática', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Ing. Electrónica' , courseTime: CareerTimeEnum.MID_YEAR},
+          { name: 'Ing. Sistemas', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Ing. Electromecánica', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Ing. Civil' , courseTime: CareerTimeEnum.MID_YEAR},
+          { name: 'Ing. Química' , courseTime: CareerTimeEnum.MID_YEAR},
+          { name: 'Ing. Alimentos', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Lic. Biología', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Lic. Química', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Lic. Matemáticas', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Lic. Física', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Ing. Biotecnología', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Ing. Energía', courseTime: CareerTimeEnum.MID_YEAR },
         ],
         courses: [
           { name: 'Aritmética – Álgebra' },
@@ -46,11 +47,11 @@ export class FacultyCareerSeeder {
         code: 'ECO',
         name: 'Economía',
         degrees: [
-          { name: 'Economía', courseTime: 'semestral' },
-          { name: 'Contaduría pública', courseTime: 'semestral' },
-          { name: 'Administración de empresas', courseTime: 'semestral' },
-          { name: 'Ing. Comercial', courseTime: 'semestral' },
-          { name: 'Ing. Financiera', courseTime: 'semestral' },
+          { name: 'Economía', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Contaduría pública', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Administración de empresas', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Ing. Comercial', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Ing. Financiera', courseTime: CareerTimeEnum.MID_YEAR },
         ],
         courses: [
           { name: 'Matemáticas' },
@@ -63,12 +64,12 @@ export class FacultyCareerSeeder {
         code: 'HUM',
         name: 'Humanidades',
         degrees: [
-          { name: 'Ciencias de la educación', courseTime: 'semestral' },
-          { name: 'Psicología' , courseTime: 'semestral'},
-          { name: 'Lingüística', courseTime: 'semestral' },
-          { name: 'Trabajo social', courseTime: 'semestral' },
-          { name: 'Ciencias del deporte', courseTime: 'semestral' },
-          { name: 'Técnico superior en Parvulario', courseTime: 'semestral' },
+          { name: 'Ciencias de la educación', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Psicología' , courseTime: CareerTimeEnum.MID_YEAR},
+          { name: 'Lingüística', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Trabajo social', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Ciencias del deporte', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Técnico superior en Parvulario', courseTime: CareerTimeEnum.MID_YEAR },
         ],
         courses: [
           { name: 'Razonamiento Verbal' },
@@ -80,9 +81,9 @@ export class FacultyCareerSeeder {
         code: 'VET',
         name: 'Agronomía, Veterinaria y Forestal',
         degrees: [
-          { name: 'Agronomía', courseTime: 'semestral' },
-          { name: 'Veterinaria', courseTime: 'semestral' },
-          { name: 'Ing. Forestal', courseTime: 'semestral' },
+          { name: 'Agronomía', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Veterinaria', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Ing. Forestal', courseTime: CareerTimeEnum.MID_YEAR },
         ],
         courses: [
           { name: 'Matemáticas' },
@@ -94,10 +95,10 @@ export class FacultyCareerSeeder {
         code: 'MED',
         name: 'Medicina',
         degrees: [
-          { name: 'Medicina', courseTime: 'anual' },
-          { name: 'Fisioterapia', courseTime: 'semestral' },
-          { name: 'Nutrición', courseTime: 'semestral' },
-          { name: 'Enfermería', courseTime: 'anual' },
+          { name: 'Medicina', courseTime: CareerTimeEnum.YEAR },
+          { name: 'Fisioterapia', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Nutrición', courseTime: CareerTimeEnum.MID_YEAR },
+          { name: 'Enfermería', courseTime: CareerTimeEnum.YEAR },
         ],
         courses: [
           { name: 'Morfo función' },
@@ -119,7 +120,7 @@ export class FacultyCareerSeeder {
       {
         code: 'ODO',
         name: 'Odontología',
-        degrees: [{ name: 'Odontología', courseTime: 'anual' }],
+        degrees: [{ name: 'Odontología', courseTime: CareerTimeEnum.YEAR }],
         courses: [
           { name: 'Química' },
           { name: 'Biología' },
@@ -129,7 +130,7 @@ export class FacultyCareerSeeder {
       {
         code: 'BIOQ',
         name: 'Bioquímica',
-        degrees: [{ name: 'Bioquímica', courseTime: 'anual' }],
+        degrees: [{ name: 'Bioquímica', courseTime: CareerTimeEnum.YEAR }],
         courses: [
           { name: 'Matemáticas' },
           { name: 'Química' },
@@ -141,8 +142,8 @@ export class FacultyCareerSeeder {
         code: 'DER',
         name: 'Ciencias Jurídicas y Políticas',
         degrees: [
-          { name: 'Derecho', courseTime: 'anual' },
-          { name: 'Ciencia política', courseTime: 'anual' },
+          { name: 'Derecho', courseTime: CareerTimeEnum.YEAR },
+          { name: 'Ciencia política', courseTime: CareerTimeEnum.YEAR },
         ],
         courses: [
           { name: 'Constitución Política del Estado' },
@@ -154,11 +155,11 @@ export class FacultyCareerSeeder {
         code: 'ARQ',
         name: 'Arquitectura',
         degrees: [
-          { name: 'Arquitectura', courseTime: 'anual' },
-          { name: 'Turismo', courseTime: 'anual' },
-          { name: 'Diseño gráfico', courseTime: 'anual' },
-          { name: 'Diseño de interiores', courseTime: 'anual' },
-          { name: 'Planificación de territorio y medio ambiente', courseTime: 'anual' },
+          { name: 'Arquitectura', courseTime: CareerTimeEnum.YEAR },
+          { name: 'Turismo', courseTime: CareerTimeEnum.YEAR },
+          { name: 'Diseño gráfico', courseTime: CareerTimeEnum.YEAR },
+          { name: 'Diseño de interiores', courseTime: CareerTimeEnum.YEAR },
+          { name: 'Planificación de territorio y medio ambiente', courseTime: CareerTimeEnum.YEAR },
         ],
         courses: [
           { name: 'Ciencias del diseño y proyectos' },
@@ -170,7 +171,7 @@ export class FacultyCareerSeeder {
         code: 'NOR',
         name: 'Escuelas Superiores de formación de maestros (ESFM) Normales',
         degrees: [
-          { name: 'ESFM', courseTime: 'anual' },
+          { name: 'ESFM', courseTime: CareerTimeEnum.YEAR },
         ],
         courses: [
           { name: 'Con. Gen. de la realidad del país y del sistema educativo plurinacional' },
@@ -182,8 +183,8 @@ export class FacultyCareerSeeder {
         code: 'MIL',
         name: 'Instituciones Militares y Policiales',
         degrees: [
-          { name: 'Militares', courseTime: 'anual' },
-          { name: 'Policiales', courseTime: 'anual' },
+          { name: 'Militares', courseTime: CareerTimeEnum.YEAR },
+          { name: 'Policiales', courseTime: CareerTimeEnum.YEAR },
         ],
         courses: [
           { name: 'Matemáticas' },
