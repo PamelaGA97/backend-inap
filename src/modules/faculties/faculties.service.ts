@@ -8,15 +8,18 @@ import { PaginationModel } from 'src/shared/hepers/pagination/model/pagination.m
 import { errorHanbler } from 'src/shared/utils/Error.utils';
 import { paginate } from 'src/shared/hepers/pagination/pagination.helper';
 import { Degree } from '../degree/entities/degrees.entity';
+import { Course } from '../courses/entities/course.entity';
 
 @Injectable()
 export class FacultiesService {
-    private serviceName: string = 'FacultyService';
+    private _serviceName: string = 'FacultyService';
     constructor(
         @InjectRepository(Faculty)
         private readonly facultyRepository: Repository<Faculty>,
         @InjectRepository(Degree)
-        private readonly degreeRepository: Repository<Degree>
+        private readonly degreeRepository: Repository<Degree>,
+        @InjectRepository(Course)
+        private readonly courseRepository: Repository<Course>,
     ) {}
     
     async create(facultyData: CreateFacultyDto): Promise<Faculty> {
@@ -25,7 +28,7 @@ export class FacultiesService {
             await this.facultyRepository.save(faculty);
             return faculty;
         } catch (error) {
-            errorHanbler(this.serviceName, error);
+            errorHanbler(this._serviceName, error);
             throw new BadRequestException('Algo salio mal, No se creo la facultad');
         }
     }
@@ -47,7 +50,7 @@ export class FacultiesService {
             return response;
 
         } catch(error) {
-            errorHanbler(this.serviceName, error);
+            errorHanbler(this._serviceName, error);
             throw new BadRequestException('No se cargan las facultades');
         }
     }
@@ -70,8 +73,23 @@ export class FacultiesService {
             return response;
 
         } catch (error) {
-            errorHanbler(this.serviceName, error);
+            errorHanbler(this._serviceName, error);
             throw new BadRequestException('No se pudieron obtener las carreras de la facultad');
+        }
+    }
+
+    async findCourses(id: string): Promise<PaginationModel<Course>> {
+        try {
+            const queryBuilder = this.courseRepository.createQueryBuilder('courses')
+                                    .leftJoin('courses.faculty', 'faculty')
+                                    .where('faculty.id = :id', { id })
+                                    .orderBy('courses.createdAt', 'DESC');
+            
+            const response = await paginate<Course>(queryBuilder, { page: 1, limit: 100 });
+            return response;
+        } catch(error) {
+            errorHanbler(this._serviceName, error);
+            throw new BadRequestException('No se cargan las materias.');
         }
     }
 

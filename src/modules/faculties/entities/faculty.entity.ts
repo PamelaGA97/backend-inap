@@ -24,5 +24,4 @@ export class Faculty extends BaseEntity {
 
     @OneToMany(() => User, (user) => user.faculty)
     users: User[];
-
 }

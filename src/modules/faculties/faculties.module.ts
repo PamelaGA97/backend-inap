@@ -5,9 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { FacultyCareerSeeder } from './seeders/faculty-career.seed';
 import { Faculty } from './entities/faculty.entity';
 import { Degree } from '../degree/entities/degrees.entity';
+import { Course } from '../courses/entities/course.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Faculty, Degree])],
+  imports: [TypeOrmModule.forFeature([Faculty, Degree, Course])],
   providers: [FacultiesService, FacultyCareerSeeder],
   controllers: [FacultiesController],
   exports: [FacultyCareerSeeder]

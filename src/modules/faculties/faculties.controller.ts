@@ -20,6 +20,11 @@ export class FacultiesController {
         return this.facultiesService.findDegrees(id);
     }
 
+    @Get(':id/courses')
+    findCourses(@Param('id') id: string) {
+        return this.facultiesService.findCourses(id);
+    }
+
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.facultiesService.findOne(id);
