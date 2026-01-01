@@ -4,6 +4,8 @@ import { Course } from './entities/course.entity';
 import { Repository } from 'typeorm';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { CreateCourseDto } from './dto/create-course.dto';
+import { PaginationModel } from 'src/shared/hepers/pagination/model/pagination.model';
+import { paginate } from 'src/shared/hepers/pagination/pagination.helper';
 
 @Injectable()
 export class CoursesService {
@@ -12,20 +14,21 @@ export class CoursesService {
         private readonly courseRepository: Repository<Course>
     ) {}
 
-    async findAll(query: Record<string, any>): Promise<Course[]> {
-        const filters: Record<string, any> = {};
-        if(query.name) {
-            filters.name = query.name;
-        }
+    async findAll(query: Record<string, any>): Promise<PaginationModel<Course>> {
+        const page = Number(query.page) > 0 ? Number(query.page) : 1;
+        const limit = Number(query.limit) > 0 ? Number(query.limit) : 10;
 
-        return this.courseRepository.find({
-            where: filters,
-        })
+        const queryBuilder = this.courseRepository.createQueryBuilder('courses')
+                                .orderBy('courses.createsAt', 'DESC');
+
+        const response = await paginate<Course>(queryBuilder, { page, limit});
+        return response;
     }
 
     async findOne(id: string): Promise<Course> {
         return this.courseRepository.findOne({
-            where: { id }
+            where: { id },
+            relations: ['users']
         });
     }
 

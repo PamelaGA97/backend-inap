@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Degree } from './entities/degrees.entity';
@@ -6,23 +6,30 @@ import { CreateDegreeDto } from './dto/create-degree.dto';
 import { UpdateDegreeDto } from './dto/update-degree.dto';
 import { paginate } from 'src/shared/hepers/pagination/pagination.helper';
 import { PaginationModel } from 'src/shared/hepers/pagination/model/pagination.model';
+import { errorHanbler } from 'src/shared/utils/Error.utils';
 
 @Injectable()
 export class DegreesService {
+    private _serviceName: string = 'CourseService';
     constructor(
         @InjectRepository(Degree)
         private readonly degreeRepository: Repository<Degree>
     ) {}
 
     async findAll(query: Record<string, any>): Promise<PaginationModel<Degree>> {
-        const page = Number(query.page) > 0 ? Number(query.page) : 1;
-        const limit = Number(query.limit) > 0 ? Number(query.limit) : 10;
-
-        const queryBuilder =  this.degreeRepository.createQueryBuilder('degrees')
-                                .orderBy('degrees.createdAt', 'DESC');
-        
-        const responce = await paginate<Degree>(queryBuilder, { page, limit });
-        return responce;
+        try {
+            const page = Number(query.page) > 0 ? Number(query.page) : 1;
+            const limit = Number(query.limit) > 0 ? Number(query.limit) : 10;
+    
+            const queryBuilder = this.degreeRepository.createQueryBuilder('degrees')
+                                    .orderBy('degrees.createdAt', 'DESC');
+            
+            const responce = await paginate<Degree>(queryBuilder, { page, limit });
+            return responce;
+        } catch(error) {
+            errorHanbler(this._serviceName, error);
+            throw new BadRequestException('No se cargan las Carreras');
+        }
     }
 
     async findOne(id: string): Promise<Degree> {

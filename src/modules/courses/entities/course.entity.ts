@@ -1,7 +1,7 @@
-import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne } from "typeorm";
 import { BaseEntity } from "../../base/base.entity";
 import { Faculty } from "../../faculties/entities/faculty.entity";
-import { CareerTimeEnum } from "../enum/career-time.enum";
+import { User } from "src/modules/users/entities/user.entity";
 
 @Entity()
 export class Course extends BaseEntity {
@@ -11,6 +11,6 @@ export class Course extends BaseEntity {
     @ManyToOne(() => Faculty, (faculty) => faculty.courses, {onDelete: 'CASCADE'})
     faculty: Faculty;
 
-    // @OneToMany(() => Professor, (professor) => professor.course)
-    // professors: Professor[];
+    @ManyToMany(() => User, (user) => user.courses)
+    users: User[];
 }
