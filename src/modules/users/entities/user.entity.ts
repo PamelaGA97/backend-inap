@@ -1,8 +1,9 @@
-import { Column, Entity, ManyToOne, TableInheritance } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from "typeorm";
 import { UserRolEnum } from "../enums/user-rol-enum";
 import { BaseEntity } from "src/modules/base/base.entity";
 import { Faculty } from "src/modules/faculties/entities/faculty.entity";
 import { Degree } from "src/modules/degree/entities/degrees.entity";
+import { Course } from "src/modules/courses/entities/course.entity";
 
 @Entity('users')
 export class User extends BaseEntity {
@@ -45,17 +46,16 @@ export class User extends BaseEntity {
     graduationYear: string;
 
     @ManyToOne(() => Faculty, (faculty) => faculty.users)
-    faculty: Faculty
+    faculty: Faculty;
 
     @ManyToOne(() => Degree, (degree) => degree.users)
-    degree: Degree
+    degree: Degree;
 
-    // Professor
-    // @Column({nullable: true})
-    // initialDate: Date;
-
-    // @Column({nullable: true})
-    // finishDate: Date;
-
-    
+    @ManyToMany(() => Course, (course)=> course.users)
+    @JoinTable({
+        name: 'user_courses',
+        joinColumn: { name: 'user_id' },
+        inverseJoinColumn: { name: 'course_id' },
+    })
+    courses?: Course[];
 }

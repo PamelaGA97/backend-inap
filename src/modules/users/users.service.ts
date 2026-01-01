@@ -57,6 +57,9 @@ export class UsersService {
             const limit = Number(query.limit) > 0 ? Number(query.limit) : 10;
             
             const queryBuilder = this.userRepository.createQueryBuilder('users')
+                                    .leftJoinAndSelect('users.faculty', 'faculty')
+                                    .leftJoinAndSelect('users.degree', 'degree')
+                                    .leftJoinAndSelect('users.courses', 'courses')
                                     .orderBy('users.createdAt', 'DESC');
 
             if (query.rol) {
@@ -75,7 +78,13 @@ export class UsersService {
         try {
             const user = await this.userRepository.findOne({
                 where: {id},
-                relations: ['faculty', 'degree']
+                relations: {
+                    courses: {
+                        faculty: true,
+                    },
+                    faculty: true,
+                    degree: true,
+                },
             })
             
             if (!user) {

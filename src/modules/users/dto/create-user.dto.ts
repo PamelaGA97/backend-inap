@@ -1,9 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsArray, IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 import { UserRolEnum } from "../enums/user-rol-enum";
 import { TurnsJob } from "src/modules/base/enums/turns-job.enum";
 import { Faculty } from "src/modules/faculties/entities/faculty.entity";
 import { Degree } from "src/modules/degree/entities/degrees.entity";
+import { Course } from "src/modules/courses/entities/course.entity";
 
 export class CreateUserDto {
     @IsString()
@@ -98,4 +99,28 @@ export class CreateUserDto {
         ]
     })
     degree: string | Degree;
+
+    @IsOptional()
+    @IsArray()
+    @ApiProperty({
+    required: false,
+    description: 'Lista de cursos (puede ser ids o objetos)',
+    oneOf: [
+        { 
+            type: 'array',
+            items: {
+                type: 'string',
+                example: 'uuid-course'
+            } 
+        },
+        {
+            type: 'array',
+            items: {
+                type: 'object',
+                example: { id: 'uuid-course' },
+            },
+        },
+    ],
+    })
+    courses?: ({ id: string } | Course)[];
 }
