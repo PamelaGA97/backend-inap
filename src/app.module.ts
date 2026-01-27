@@ -9,6 +9,7 @@ import { UsersModule } from './modules/users/users.module';
 import { FacultyCareerSeeder } from './modules/faculties/seeders/faculty-career.seed';
 import { DegreesModule } from './modules/degree/degrees.module';
 import { CoursesModule } from './modules/courses/courses.module';
+import { TeacherAvailabilityModule } from './modules/teacher-availability/teacher-availability.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { CoursesModule } from './modules/courses/courses.module';
     // FacultyCourseModule,
     // InscriptionsModule,
     PeopleModule,
+    TeacherAvailabilityModule,
   ],
   controllers: [AppController],
   providers: [AppService],

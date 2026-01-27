@@ -28,7 +28,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-  async remove(@Param() id: string) {
+  async remove(@Param('id') id: string) {
     return await this.usersService.remove(id);
   }
 }
