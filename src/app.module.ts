@@ -10,6 +10,7 @@ import { FacultyCareerSeeder } from './modules/faculties/seeders/faculty-career.
 import { DegreesModule } from './modules/degree/degrees.module';
 import { CoursesModule } from './modules/courses/courses.module';
 import { TeacherAvailabilityModule } from './modules/teacher-availability/teacher-availability.module';
+import { TeacherSubjectModule } from './modules/teacher-subject/teacher-subject.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { TeacherAvailabilityModule } from './modules/teacher-availability/teache
     // InscriptionsModule,
     PeopleModule,
     TeacherAvailabilityModule,
+    TeacherSubjectModule,
   ],
   controllers: [AppController],
   providers: [AppService],

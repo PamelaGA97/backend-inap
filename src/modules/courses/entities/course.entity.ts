@@ -10,7 +10,4 @@ export class Course extends BaseEntity {
 
     @ManyToOne(() => Faculty, (faculty) => faculty.courses, {onDelete: 'CASCADE'})
     faculty: Faculty;
-
-    @ManyToMany(() => User, (user) => user.courses)
-    users: User[];
 }

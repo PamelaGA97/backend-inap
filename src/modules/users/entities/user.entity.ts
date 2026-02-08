@@ -1,9 +1,11 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany } from "typeorm";
 import { UserRolEnum } from "../enums/user-rol-enum";
 import { BaseEntity } from "src/modules/base/base.entity";
 import { Faculty } from "src/modules/faculties/entities/faculty.entity";
 import { Degree } from "src/modules/degree/entities/degrees.entity";
 import { Course } from "src/modules/courses/entities/course.entity";
+import { TeacherAvailability } from "src/modules/teacher-availability/entities/teacher-availability.entity";
+import { TeacherSubject } from '../../teacher-subject/entities/teacher-subject.entity';
 
 @Entity('users')
 export class User extends BaseEntity {
@@ -51,11 +53,12 @@ export class User extends BaseEntity {
     @ManyToOne(() => Degree, (degree) => degree.users)
     degree: Degree;
 
-    @ManyToMany(() => Course, (course)=> course.users)
-    @JoinTable({
-        name: 'user_courses',
-        joinColumn: { name: 'user_id' },
-        inverseJoinColumn: { name: 'course_id' },
+    @OneToMany(() => TeacherAvailability, (availability) => availability.user, {
+        cascade: true,
+        eager: true,
     })
-    courses?: Course[];
+    teacherAvailabilities: TeacherAvailability[];
+
+    @OneToMany(() => TeacherSubject, (teacherSubject) => teacherSubject.user, { onDelete: 'CASCADE' })
+    teacherSubjects: TeacherSubject[];
 }

@@ -11,6 +11,7 @@ import { errorHanbler } from 'src/shared/utils/Error.utils';
 import { validateFacultyInput } from 'src/common/utils/validate-faculty.util';
 import { Faculty } from '../faculties/entities/faculty.entity';
 import { UserRolEnum } from './enums/user-rol-enum';
+import { TeacherAvailability } from '../teacher-availability/entities/teacher-availability.entity';
 
 @Injectable()
 export class UsersService {
@@ -42,6 +43,25 @@ export class UsersService {
                 createUserDto.faculty = faculty;
             }
 
+            if (createUserDto.teacherAvailabilities.length > 0) {
+                createUserDto.teacherAvailabilities = createUserDto.teacherAvailabilities
+                    .map((availiability) => {
+                        return {
+                            ...availiability
+                        } as TeacherAvailability;
+                    })
+            }
+
+            // [*] crear las relaciones de teacher availability
+            // [] crear el dto de teacher availability
+            // [] actualizar el guardar
+            // [] comprobar en frontend si se guarda correctamente
+            // [] retornar la relacion en el getAll
+            // [] comprobar en frontend que lleguen los tadosa traves del usuario incluido el teacher availability
+            // [] implementar el editar de usuario si funciona correctamente al actualizar el teacher availabiliti
+            // [] comprobar que funciona el delete
+            //
+
             const user = await this.userRepository.create(createUserDto as {});
             return await this.userRepository.save(user);
 
@@ -59,7 +79,8 @@ export class UsersService {
             const queryBuilder = this.userRepository.createQueryBuilder('users')
                                     .leftJoinAndSelect('users.faculty', 'faculty')
                                     .leftJoinAndSelect('users.degree', 'degree')
-                                    .leftJoinAndSelect('users.courses', 'courses')
+                                    // .leftJoinAndSelect('users.courses', 'courses')
+                                    .leftJoinAndSelect('users.teacherAvailabilities', 'teacherAvailabilities')
                                     .orderBy('users.createdAt', 'DESC');
 
             if (query.rol) {
@@ -79,9 +100,6 @@ export class UsersService {
             const user = await this.userRepository.findOne({
                 where: {id},
                 relations: {
-                    courses: {
-                        faculty: true,
-                    },
                     faculty: true,
                     degree: true,
                 },
